@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace 测试数据库连接.Controllers
+namespace testDataBase.Controllers
 {
     public class ErrorController : Controller
     {
