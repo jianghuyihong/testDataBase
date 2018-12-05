@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+
+    <div class="layui-carousel" id="test1">
+        <div carousel-item>
+            <div>条目1</div>
+            <div>条目2</div>
+            <div>条目3</div>
+            <div>条目4</div>
+            <div>条目5</div>
+        </div>
+    </div>
+    <!-- 条目中可以是任意内容，如：<img src=""> -->
+
+    <script src="/static/build/layui.js"></script>
+    <script>
+        layui.use('carousel', function () {
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#test1'
+                , width: '100%' //设置容器宽度
+                , height: '100%' //设置容器高度
+                , arrow: 'always' //始终显示箭头
+                //,anim: 'updown' //切换动画方式
+            });
+        });
+    </script>
+</body>
+</html>
