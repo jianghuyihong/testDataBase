@@ -10,7 +10,8 @@ namespace testDataBase
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Content/javaScript/layui.js",
-                        "~/Content/javaScript/layui.all.js"
+                        "~/Content/javaScript/layui.all.js",
+                        "~/Content/javaScript/jquery-2.1.0.js"
                         ));
             
         

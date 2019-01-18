@@ -10,7 +10,7 @@ namespace testDataBase.App_Start
         //字段
         int productid;
         string productname;
-        decimal unitprice;
+        string unitprice;
         int categoryid;
 
 
@@ -21,7 +21,7 @@ namespace testDataBase.App_Start
             //
         }
         //插入商品
-        public ProductsInfo(string productname, decimal unitprice, int categoryid)
+        public ProductsInfo(string productname, string unitprice, int categoryid)
         {
             this.productname = productname;
             this.unitprice = unitprice;
@@ -29,7 +29,7 @@ namespace testDataBase.App_Start
         }
         //查看全部
         //插入商品
-        public ProductsInfo(int productid, string productname, decimal unitprice, int categoryid)
+        public ProductsInfo(int productid, string productname, string unitprice, int categoryid)
         {
             this.productid = productid;
             this.productname = productname;
@@ -47,7 +47,7 @@ namespace testDataBase.App_Start
             get { return productname; }
             set { productname = value; }
         }
-        public decimal Unitprice
+        public string Unitprice
         {
             get { return unitprice; }
             set { unitprice = value; }

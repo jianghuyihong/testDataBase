@@ -35,7 +35,7 @@ namespace testDataBase.App_Start
         //查所有产品
         public static IList<ProductsInfo> GetProductByCateid(int cateid)
         {
-            string sql = "select 产品ID,产品名称,单价,类别ID from 产品 where 类别ID=@cateid";
+            string sql = "select ID,productname,unitprice,categoryid from product where categoryid=@cateid";
             IList<ProductsInfo> products = new List<ProductsInfo>();
 
             OleDbConnection con = new DBConnection().Con;
@@ -51,7 +51,7 @@ namespace testDataBase.App_Start
             OleDbDataReader oddr = com.ExecuteReader();
             while (oddr.Read())
             {
-                ProductsInfo product = new ProductsInfo(oddr.GetInt32(0), oddr.GetString(1), oddr.GetDecimal(2), oddr.GetInt32(3));
+                ProductsInfo product = new ProductsInfo(oddr.GetInt32(0), oddr.GetString(1), oddr.GetString(2), oddr.GetInt32(3));
                 products.Add(product);
             }
             con.Close();

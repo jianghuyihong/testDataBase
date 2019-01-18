@@ -21,7 +21,6 @@
     </div>
     <!-- 条目中可以是任意内容，如：<img src=""> -->
 
-    <script src="/static/build/layui.js"></script>
     <script>
         layui.use('carousel', function () {
             var carousel = layui.carousel;
@@ -34,6 +33,18 @@
                 //,anim: 'updown' //切换动画方式
             });
         });
+
+        //获取添加授课计划信息
+        $.ajax({
+            type: 'get'
+            , url: `/ProductsOper/GetProductByCateid`
+            , cache: false
+            , data: { cateid: 1 }
+            , dataType: 'json'
+            , success: function (r) {
+                console.log(r)
+            }
+        })
     </script>
 </body>
 </html>

@@ -14,7 +14,7 @@ namespace testDataBase.App_Start
 
         public DBConnection()
         {
-            con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0; Data Source=E:\\northwind.mdb;");
+            con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0; Data Source=|DataDirectory|db.mdb;");
         }
 
         public OleDbConnection Con
