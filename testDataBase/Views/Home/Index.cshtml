@@ -13,19 +13,44 @@
             display: inline-block;
             cursor: pointer;
         }
-        span#modify{
-            color:#ff6a00;
+
+        span#modify {
+            color: #ff6a00;
         }
+
         span#delete {
-            color:red
+            color: red
         }
+
         span#insert {
             color: #02ad20;
         }
     </style>
 </head>
 <body>
-    <div><span id="insert" onclick="insert()">新增</span><span id="search" onclick="search()">查询</span><span id="modify"  onclick="modify()">修改</span><span id="delete" onclick="del()">删除</span></div>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <div><span id="insert" onclick="insert()">新增</span><span id="search" onclick="search()">查询</span><span id="modify" onclick="modify()">修改</span><span id="delete" onclick="del()">删除</span></div>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs6">
+                <label>科目类型：</label><select  id="ProductName"><option value="">--请选择--</option><option value="寒假课程">寒假课程</option><option value="常规课程">常规课程</option><option value="百元课程">百元课程</option></select>
+            </div>
+            <div class="layui-col-xs6">
+                <label>科目单价：</label><input id="Unitprice" placeholder="请输入单价" />
+            </div>
+            <div class="layui-col-xs6">
+                <label>分类ID：</label><select id="Categoryid"><option value="">--请选择--</option><option value="分类1">分类1</option><option value="分类2">分类2</option><option value="分类3">分类3</option></select>
+            </div>
+            <div class="layui-col-xs6">
+                <label>产品ID：</label><input id="Productid" placeholder="请输入单价" />
+            </div>
+        </div>
+    </div>
     <table class="layui-hide" id="demo" lay-filter="test"></table>
 
     <script type="text/html" id="barDemo">
@@ -33,14 +58,14 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
     @*<div class="layui-carousel" id="test1">
-        <div carousel-item>
-            <div>条目1</div>
-            <div>条目2</div>
-            <div>条目3</div>
-            <div>条目4</div>
-            <div>条目5</div>
-        </div>
-    </div>*@
+            <div carousel-item>
+                <div>条目1</div>
+                <div>条目2</div>
+                <div>条目3</div>
+                <div>条目4</div>
+                <div>条目5</div>
+            </div>
+        </div>*@
     <!-- 条目中可以是任意内容，如：<img src=""> -->
 
     <script>
@@ -56,9 +81,10 @@
             });
         });
 
-        let _json = { Productname: "新增类型", Unitprice: 1200, Categoryid: 1, Productid: 1 };
+        
         //新增授课计划信息
         let insert = () => {
+            let _json = { productName: $("#ProductName").val(), unitPrice: $("#Unitprice").val(), categoryId: $("#Categoryid").val(), productId: $("#Productid").val(), createTime: "2019-03-18" };
             $.ajax({
                 type: 'post'
                 , url: `/ProductsOper/insert`
@@ -68,7 +94,7 @@
                 //, contentType: "application/json; charset=utf-8"
                 , success: function (r) {
                     console.log(r);
-                    searchData(r.Data);
+                    search();  //重新查询
                 }
             })
         };
@@ -88,7 +114,7 @@
                 }
             })
         };
-        
+
         //删除授课计划信息
         let del = () => {
             $.ajax({
@@ -111,14 +137,14 @@
                 , url: `/ProductsOper/GetProductByCateid`
                 , cache: false
                 , data: { cateid: 1 }
-                , dataType: 'json'
+                //, dataType: 'json'
                 , success: function (r) {
                     console.log(r);
                     searchData(r.Data);
                 }
             })
         }
-        
+
 
 
         //获取授课计划信息数据
@@ -144,8 +170,8 @@
                                 return d.LAY_TABLE_INDEX + 1;
                             }
                         }
-                        , { field: 'Productname', title: '科目', width: 80 }
-                        , { field: 'Unitprice', title: '单价', width: 90, sort: true, totalRow: true }
+                        , { field: 'productName', title: '科目' }
+                        , { field: 'unitPrice', title: '单价', sort: true, totalRow: true }
                         , { fixed: 'right', width: 165, align: 'center', toolbar: '#barDemo' }
                     ]]
                 });

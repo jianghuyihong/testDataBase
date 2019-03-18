@@ -126,7 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DBConnection.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\ProductsInfo.cs" />
+    <Compile Include="App_Start\_ProductsInfo.cs" />
     <Compile Include="App_Start\_ProductsOper.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bll\ProductBll.cs" />

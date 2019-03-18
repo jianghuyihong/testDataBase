@@ -15,7 +15,7 @@ namespace testDataBase.App_Start
             //
         }
         //插入商品
-        public static void Insert(ProductsInfo product)
+        public static void Insert(_ProductsInfo product)
         {
 
             string sql = "insert into product(productname,unitprice,categoryid) values(@productname,@unitprice,@categoryid)";
@@ -33,10 +33,10 @@ namespace testDataBase.App_Start
             con.Close();
         }
         //查所有产品
-        public static IList<ProductsInfo> GetProductByCateid(int cateid)
+        public static IList<_ProductsInfo> GetProductByCateid(int cateid)
         {
             string sql = "select ID,productname,unitprice,categoryid from product where categoryid=@cateid";
-            IList<ProductsInfo> products = new List<ProductsInfo>();
+            IList<_ProductsInfo> products = new List<_ProductsInfo>();
 
             OleDbConnection con = new DBConnection().Con;
             OleDbCommand com = new OleDbCommand();
@@ -51,7 +51,7 @@ namespace testDataBase.App_Start
             OleDbDataReader oddr = com.ExecuteReader();
             while (oddr.Read())
             {
-                ProductsInfo product = new ProductsInfo(oddr.GetInt32(0), oddr.GetString(1), oddr.GetString(2), oddr.GetInt32(3));
+                _ProductsInfo product = new _ProductsInfo(oddr.GetInt32(0), oddr.GetString(1), oddr.GetString(2), oddr.GetInt32(3));
                 products.Add(product);
             }
             con.Close();
@@ -79,7 +79,7 @@ namespace testDataBase.App_Start
         }
 
         ////根据productid更新数据
-        public static void Update(ProductsInfo prod)
+        public static void Update(_ProductsInfo prod)
         {
 
             string sql = "update product set productname=@productname,unitprice=@unitprice,categoryid=@categoryid "

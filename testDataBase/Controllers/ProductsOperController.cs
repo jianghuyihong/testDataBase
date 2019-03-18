@@ -22,8 +22,8 @@ namespace testDataBase.Controllers
         ProductBll bll = new ProductBll();
         public JsonResult GetProductByCateid(int cateid)
         {
-            string sql = "select ID,productname,unitprice,categoryid from product where categoryid=@cateid";
-            IList<ProductsInfo> products = new List<ProductsInfo>();
+            string sql = "select ID,productname,unitprice,categoryid,createtime,modifytime from product where categoryid=@cateid";
+            IList<Products> products = new List<Products>();
 
             OleDbConnection con = new DBConnection().Con;
             OleDbCommand com = new OleDbCommand();
@@ -38,7 +38,7 @@ namespace testDataBase.Controllers
             OleDbDataReader oddr = com.ExecuteReader();
             while (oddr.Read())
             {
-                ProductsInfo product = new ProductsInfo(oddr.GetInt32(0), oddr.GetString(1), oddr.GetString(2), oddr.GetInt32(3));
+                Products product = new Products(oddr.GetInt32(0), oddr.GetString(1), oddr.GetString(2), oddr.GetString(3), oddr.GetString(4), oddr.GetString(5));
                 products.Add(product);
             }
             con.Close();
