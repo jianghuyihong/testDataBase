@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using testDataBase.App_Start;
+using testDataBase.Bll;
+using testDataBase.Models;
 
 namespace testDataBase.Controllers
 {
@@ -17,6 +19,7 @@ namespace testDataBase.Controllers
         //    return View();
         //}
         //查所有产品
+        ProductBll bll = new ProductBll();
         public JsonResult GetProductByCateid(int cateid)
         {
             string sql = "select ID,productname,unitprice,categoryid from product where categoryid=@cateid";
@@ -44,6 +47,16 @@ namespace testDataBase.Controllers
             //return Content(strJson);
             var json = new { Success = true, Data = products };//true 布尔型 好想不行，直接变成字符串。
             return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult insert(Products products)
+        {
+
+            bool _bool = bll.insert(products);
+            string msg = _bool ? "添加成功" : "添加失败";
+
+            return Json(new { Success=_bool,msg=msg},JsonRequestBehavior.AllowGet);
         }
     }
 }
