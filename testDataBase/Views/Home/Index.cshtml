@@ -34,11 +34,11 @@
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <div><span id="insert" onclick="insert()">新增</span><span id="search" onclick="search()">查询</span><span id="modify" onclick="modify()">修改</span><span id="delete" onclick="del()">删除</span></div>
+    <div><span id="insert" onclick="insert()">新增</span><span id="search" onclick="search()">查询</span><span id="modify" onclick="modify()">修改</span><span id="delete" onclick="Delete()">删除</span></div>
     <div class="layui-container">
         <div class="layui-row">
             <div class="layui-col-xs6">
-                <label>科目类型：</label><select  id="ProductName"><option value="">--请选择--</option><option value="寒假课程">寒假课程</option><option value="常规课程">常规课程</option><option value="百元课程">百元课程</option></select>
+                <label>科目类型：</label><select id="ProductName"><option value="">--请选择--</option><option value="寒假课程">寒假课程</option><option value="常规课程">常规课程</option><option value="百元课程">百元课程</option></select>
             </div>
             <div class="layui-col-xs6">
                 <label>科目单价：</label><input id="Unitprice" placeholder="请输入单价" />
@@ -67,8 +67,42 @@
             </div>
         </div>*@
     <!-- 条目中可以是任意内容，如：<img src=""> -->
+    <form id="uploadForm" action="Upload" method="post" enctype="multipart/form-data">
+        <input id="File1" name="fileupload"  multiple="multiple" type="file"/>
+        <input id="btnImportOK" type="button" value="上传" />
+    </form>
 
     <script>
+
+        $(document).ready(function () {
+
+            //上传图片
+            $("#btnImportOK").click(function () {
+
+                var formData = new FormData($("#uploadForm")[0]);
+                console.log(formData)
+                $.ajax({
+                    type: "POST",
+                    data: formData,
+                    url: "/ProductsOper/Upload",
+                    contentType: false,
+                    processData: false,
+                }).success(function (data) {
+                    console.log(data);
+                    if (data.status) {
+                        console.log(data.msg);
+
+                    } else {
+                        console.log(data.msg);
+
+                    }
+                }).error(function (data) {
+                    console.log(data);
+
+                });
+            });
+        });
+
         layui.use('carousel', function () {
             var carousel = layui.carousel;
             //建造实例
@@ -81,7 +115,7 @@
             });
         });
 
-        
+
         //新增授课计划信息
         let insert = () => {
             let _json = { productName: $("#ProductName").val(), unitPrice: $("#Unitprice").val(), categoryId: $("#Categoryid").val(), productId: $("#Productid").val(), createTime: "2019-03-18" };
@@ -106,7 +140,7 @@
                 type: 'post'
                 , url: `/ProductsOper/Update`
                 , cache: false
-                , data: { productname: "修改类型", unitprice: 200, categoryid: 1, ID: 1 }
+                , data: { productname: "修改类型", unitprice: 200, categoryId: 1}
                 , dataType: 'json'
                 , success: function (r) {
                     console.log(r);
@@ -116,12 +150,12 @@
         };
 
         //删除授课计划信息
-        let del = () => {
+        let Delete = () => {
             $.ajax({
                 type: 'post'
                 , url: `/ProductsOper/Delete`
                 , cache: false
-                , data: { ID: 10 }
+                , data: { productid: 24 }
                 , dataType: 'json'
                 , success: function (r) {
                     console.log(r);

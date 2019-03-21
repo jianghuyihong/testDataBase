@@ -196,8 +196,8 @@ G:\testDataBase\testDataBase\bin\zh-Hans\System.Web.Razor.resources.dll
 G:\testDataBase\testDataBase\bin\zh-Hans\System.Web.WebPages.resources.dll
 G:\testDataBase\testDataBase\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 G:\testDataBase\testDataBase\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-G:\testDataBase\testDataBase\obj\Debug\testDataBase.csprojAssemblyReference.cache
 G:\testDataBase\testDataBase\obj\Debug\testDataBase.csproj.CoreCompileInputs.cache
 G:\testDataBase\testDataBase\obj\Debug\testDataBase.csproj.CopyComplete
 G:\testDataBase\testDataBase\obj\Debug\testDataBase.dll
 G:\testDataBase\testDataBase\obj\Debug\testDataBase.pdb
+G:\testDataBase\testDataBase\obj\Debug\testDataBase.csprojAssemblyReference.cache

@@ -362,6 +362,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="UploadFiles\" />
     <Folder Include="Views\ProductsOper\" />
   </ItemGroup>
   <ItemGroup>
