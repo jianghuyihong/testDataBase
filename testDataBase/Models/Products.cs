@@ -21,7 +21,16 @@ namespace testDataBase.Models
         //    this.unitprice = unitprice;
         //    this.categoryid = categoryid;
         //}
-        //查看全部
+        //
+        /// <summary>
+        /// 查看全部
+        /// </summary>
+        /// <param name="productid">产品id</param>
+        /// <param name="productname">产品名称</param>
+        /// <param name="unitprice">产品单价</param>
+        /// <param name="categoryid">分类id</param>
+        /// <param name="createtime">创建时间</param>
+        /// <param name="modifytime">修改时间</param>
         public Products(int productid, string productname, string unitprice, string categoryid, string createtime, string modifytime)
         {
             this.productid = productid;
@@ -31,14 +40,14 @@ namespace testDataBase.Models
             this.createtime = createtime;
             this.modifytime = modifytime;
         }
-        public Products(int productid, string productname, string unitprice)
-        {
-            this.productid = productid;
-            this.productname = productname;
-            this.unitprice = unitprice;
-            //this.createtime = createtime;
-            //this.modifytime = modifytime;
-        }
+        //public Products(int productid, string productname, string unitprice)
+        //{
+        //    this.productid = productid;
+        //    this.productname = productname;
+        //    this.unitprice = unitprice;
+        //    //this.createtime = createtime;
+        //    //this.modifytime = modifytime;
+        //}
         /// <summary>
         /// 产品ID
         /// </summary>

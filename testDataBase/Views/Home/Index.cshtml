@@ -34,7 +34,7 @@
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <div><span id="insert" onclick="insert()">新增</span><span id="search" onclick="search()">查询</span><span id="modify" onclick="modify()">修改</span><span id="delete" onclick="Delete()">删除</span></div>
+    <div><span id="insert" onclick="insert()">新增</span><span id="search" onclick="search()">查询</span><span id="modify" onclick="modify()">修改</span></div>
     <div class="layui-container">
         <div class="layui-row">
             <div class="layui-col-xs6">
@@ -136,29 +136,31 @@
 
         //编辑授课计划信息
         let modify = () => {
+            console.log("modify");
             $.ajax({
                 type: 'post'
-                , url: `/ProductsOper/Update`
+                , url: `/ProductsOper/modify`
                 , cache: false
-                , data: { productname: "修改类型", unitprice: 200, categoryId: 1}
+                , data: { productname: "修改类型", unitprice: "200", categoryId: "1", modifytime: "2019-03-22", productid:3}
                 , dataType: 'json'
                 , success: function (r) {
                     console.log(r);
-                    searchData(r.Data);
+                    search();  //重新查询
                 }
             })
         };
 
         //删除授课计划信息
-        let Delete = () => {
+        let Delete = (id) => {
             $.ajax({
                 type: 'post'
                 , url: `/ProductsOper/Delete`
                 , cache: false
-                , data: { productid: 24 }
+                , data: { productid: id }
                 , dataType: 'json'
                 , success: function (r) {
                     console.log(r);
+                    search();  //重新查询
                 }
             })
         }
@@ -174,7 +176,7 @@
                 //, dataType: 'json'
                 , success: function (r) {
                     console.log(r);
-                    searchData(r.Data);
+                    searchData(r.Data);  //加载表格数据
                 }
             })
         }
@@ -184,9 +186,10 @@
         //获取授课计划信息数据
         let searchData = (searchData) => {
             console.log(searchData)
-            layui.use(['laypage', 'table'], function () {
+            layui.use(['laypage', 'table','layer'], function () {
                 var laypage = layui.laypage //分页
-                    , table = layui.table;//表格
+                    , table = layui.table //表格
+                    , layer = layui.layer;//表格
 
                 //执行一个 table 实例
                 table.render({
@@ -216,7 +219,52 @@
                         , data = checkStatus.data; //获取选中的数据
                     switch (obj.event) {
                         case 'add':
-                            layer.msg('添加');
+                            //layer.msg('添加');
+                            layer.open({
+                                type: 1
+                                ,title:"添加"
+                                , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                                , content: '<div style="padding: 20px 100px;">asdasd</div>'
+                                , btn: ['关闭','确认']
+                                , btnAlign: 'c' //按钮居中
+                                , shade: 0.3 //不显示遮罩
+                                , yes: function (index, layero) {
+                                    //按钮【按钮一】的回调
+                                    console.log('关闭')
+                                    console.log(index)
+                                    layer.close(index);
+                                    //layer.closeAll();
+                                }
+                                , btn2: function (index, layero) {
+                                    //按钮【按钮二】的回调
+                                    layer.close(index);
+                                    console.log('确认');
+                                    layer.open({
+                                        type: 1
+                                        , title: "提示"
+                                        , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                                        , content: '<div style="padding: 20px 100px;">asdasd</div>'
+                                        , btn: ['关闭', '确认']
+                                        , btnAlign: 'c' //按钮居中
+                                        , shade: 0.3 //不显示遮罩
+                                        , yes: function (index, layero) {
+                                            //按钮【按钮一】的回调
+                                            console.log('关闭')
+                                            console.log(index)
+                                            layer.close(index);
+                                            //layer.closeAll();
+                                        }
+                                        , btn2: function (index, layero) {
+                                            //按钮【按钮二】的回调
+                                            console.log('确认')
+                                            return false //开启该代码可禁止点击该按钮关闭
+                                        }
+
+                                    });
+                                    return false //开启该代码可禁止点击该按钮关闭
+                                }
+                                
+                            });
                             break;
                         case 'update':
                             if (data.length === 0) {
@@ -224,7 +272,8 @@
                             } else if (data.length > 1) {
                                 layer.msg('只能同时编辑一个');
                             } else {
-                                layer.alert('编辑 [id]：' + checkStatus.data[0].id);
+                                console.log(checkStatus.data[0])
+                                layer.alert('编辑 [id]：' + checkStatus.data[0].productId);
                             }
                             break;
                         case 'delete':
@@ -232,6 +281,7 @@
                                 layer.msg('请选择一行');
                             } else {
                                 layer.msg('删除');
+                                Delete(checkStatus.data[0].categoryId);   //删除记录
                             }
                             break;
                     };
@@ -246,6 +296,7 @@
                     } else if (layEvent === 'del') {
                         layer.confirm('真的删除行么', function (index) {
                             obj.del(); //删除对应行（tr）的DOM结构
+                            Delete(data.productId);   //删除记录
                             layer.close(index);
                             //向服务端发送删除指令
                         });
@@ -266,6 +317,8 @@
                         }
                     }
                 });
+
+               
             });
         }
     </script>

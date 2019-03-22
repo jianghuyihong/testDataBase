@@ -60,7 +60,6 @@ namespace testDataBase.Controllers
         [HttpPost]
         public ActionResult insert(Products products)
         {
-
             bool _bool = bll.insert(products);
             string msg = _bool ? "添加成功" : "添加失败";
 
@@ -77,33 +76,26 @@ namespace testDataBase.Controllers
         [HttpPost]
         public ActionResult modify(Products products)
         {
-
-            bool _bool = bll.insert(products);
+            
+            bool _bool = bll.modify(products);
             string msg = _bool ? "修改成功" : "修改失败";
 
             return Json(new { Success = _bool, msg = msg }, JsonRequestBehavior.AllowGet);
         }
 
-
+        /// <summary>
+        /// 删除记录
+        /// </summary>
+        /// <param name="productid">记录ID</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int productid)
         {
-            string sql = "delete from product where ID=@productid";
 
-            OleDbConnection con = new DBConnection().Con;
-            OleDbCommand com = new OleDbCommand();
+            bool _bool = bll.delete(productid, "product");
+            string msg = _bool ? "修改成功" : "修改失败";
 
-            com = con.CreateCommand();
-            //配参
-            com.Parameters.Add(new OleDbParameter("@productid", productid));
-
-            com.CommandText = sql;
-            con.Open();
-
-            com.ExecuteNonQuery();
-            con.Close();
-
-            return Json(new { Success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = _bool, msg = msg }, JsonRequestBehavior.AllowGet);
         }
 
 
