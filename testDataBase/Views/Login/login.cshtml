@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    <style>
+        .container {
+            position: absolute;
+            left: 50%;
+            margin-left: -100px;
+            top: 50%;
+            margin-top: -200px;
+            width: 200px;
+            height: 180px;
+            background: #d4d4d4;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(51, 51, 51, 0.25098039215686274);
+        }
+        .login {
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 6px;
+            font-size: 14px;
+        }
+        input#userName {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom: 0;
+        }
+        input#userPassword {
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+        .loginBtn {
+            text-align: right;
+            margin-top: 15px;
+        }
+            .loginBtn span {
+                text-align: right;
+                display: inline-block;
+                margin: 10px;
+                padding: 5px 15px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+                background: #f5f5f5;
+                cursor:pointer;
+                transition:.5s;
+            }
+            .loginBtn span:nth-child(2) {
+                margin-right:0
+            }
+                .loginBtn span:nth-child(2):hover {
+                    background: #e8e8e8;
+                }
+                .loginBtn span:nth-child(1) {
+                    background-color: #1e9fff;
+                    border-color: #1e9fff;
+                    color: #ffffff;
+                }
+                    .loginBtn span:nth-child(1):hover {
+                        background-color: #0086ea;
+                        border-color: #0086ea;
+                        color: #ffffff;
+                    }
+        .layui-btn-disabled{
+            background-color:#ccc !important;
+            border-color:#ccc !important;
+        }
+        span#warning {
+            position: absolute;
+            font-size: 12px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <div class="container">
+        <div class=" loginWrap ">
+            <div  class=" login">登录</div>
+            <div>
+                <input id="userName" name="userName" form="loginForm" class="layui-input" placeholder="输入用户名" />
+                <input id="userPassword" name="userPassword" form="loginForm" class="layui-input" placeholder="输入密码" type="password" />
+            </div>
+            <span id="warning"></span>
+            <div  class="loginBtn"><span onclick="confirm(this)"  id="confirmBtn"  class="layui-btn-disabled">确定</span><span onclick="cancel(this)">重置</span></div>
+        </div>
+    </div>
+    <script src="~/Content/viewJs/login.js?v.1000"></script>
+</body>
+</html>

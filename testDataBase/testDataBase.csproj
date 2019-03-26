@@ -132,6 +132,7 @@
     <Compile Include="Bll\ProductBll.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductsOperController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -156,6 +157,8 @@
     <Content Include="Content\modules\layer\default\loading-1.gif" />
     <Content Include="Content\modules\layer\default\loading-2.gif" />
     <Content Include="Content\stylesheet\StyleSheet.css" />
+    <Content Include="Content\viewJs\index.js" />
+    <Content Include="Content\viewJs\login.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -360,6 +363,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Login\login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UploadFiles\" />
