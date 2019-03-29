@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+using System.Dynamic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using testDataBase.App_Start;
@@ -45,9 +43,54 @@ namespace testDataBase.Controllers
             }
             con.Close();
             JavaScriptSerializer servializer = new JavaScriptSerializer();
-            string strJson = servializer.Serialize(products);
+            //string strJson = servializer.Serialize(products);
             //return Content(strJson);
             var json = new { Success = true, Data = products };//true 布尔型 好想不行，直接变成字符串。
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="passWord">登录密码</param>
+        /// <returns></returns>
+        public JsonResult  login(string userName, string passWord)
+        {
+            string sql = "select  *  from login where userName=@userName";
+            //string sql = "select  *  from login where userName='" + userName+"'";
+            Boolean _bool = false;
+
+            //用户名
+            //dynamic  _Msg = new ExpandoObject();
+            var _Msg = new { ID = 0, userName = "", createTime = "", modifyTime = "", nikeName = "" };
+
+            OleDbConnection con = new DBConnection().Con;
+            OleDbCommand com = new OleDbCommand();
+            com = con.CreateCommand();
+
+           com.Parameters.Add(new OleDbParameter("@userName", userName));
+            com.CommandText = sql;
+
+            con.Open();
+
+            OleDbDataReader oddr = com.ExecuteReader();
+            while (oddr.Read())
+            {
+                if(userName == oddr.GetString(1) && passWord == oddr.GetString(2))
+                {
+                    _bool = true;
+                    //_Msg.ID = oddr.GetInt32(0);  //id
+                    //_Msg.userName = oddr.GetString(1);  //用户名
+                    //_Msg.createTime = oddr.GetString(3);  //创建时间
+                    //_Msg.modifyTime = oddr.GetString(4);  //修改时间
+                    //_Msg.nikeName = oddr.GetString(5);  //用户昵称
+                    _Msg = new { ID = oddr.GetInt32(0), userName = oddr.GetString(2), createTime = oddr.GetString(3), modifyTime = oddr.GetString(4), nikeName = oddr.GetString(5) };
+                };
+            }
+            con.Close();
+            JavaScriptSerializer servializer = new JavaScriptSerializer();
+            var json = _bool?  new { Success = _bool, Data = "登录成功", Msg= _Msg} : new { Success = _bool, Data = "用户名或者密码不对！", Msg = _Msg }; //登录状态。
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
